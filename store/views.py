@@ -17,6 +17,13 @@ def home(request):
     return render(request, 'home.html', context)
 
 
+def product_detail(request, pk):
+    product = Product.objects.get(pk=pk)
+    context = {
+        'product': product
+    }
+    return render(request, 'product.html', context)
+
 def about(request):
     return render(request, 'about.html', {})
 
