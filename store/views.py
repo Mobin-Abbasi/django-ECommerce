@@ -68,3 +68,21 @@ def register_user(request):
             return redirect('store:register')
     else:
         return render(request, 'register.html', {'form': form})
+
+
+def category(request, foo):
+    # Replace Hyphens with spaces
+    foo = foo.replace('-', ' ')
+    # Grab the category from url
+    try:
+        # Look up the Category
+        category = Category.objects.get(name=foo)
+        products = Product.objects.filter(category=category)
+        context = {
+            'category': category,
+            'products': products,
+        }
+        return render(request, 'category.html', context)
+    except:
+        messages.success(request, "That category Doesn't Exist...")
+        return redirect('store:home')
