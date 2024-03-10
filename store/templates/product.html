@@ -44,12 +44,12 @@ $(document).on('click', '#add-cart', function(e){
         type: 'POST',
         url: '{% url 'cart:cart_add' %}',
         data: {
-            product_id: $('#add-cart').val(),
+        product_id: $('#add-cart').val(),
             csrfmiddlewaretoken: '{{ csrf_token }}',
-            action: 'POST',
+            action: 'post'
         },
         success: function(json){
-            console.log(json)
+            document.getElementById("cart_quantity").textContent = json.qty
         },
         error: function(xhr, errmsg, err){
             
