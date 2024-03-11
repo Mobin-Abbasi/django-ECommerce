@@ -4,7 +4,7 @@
 
     <div class="container">
     <br>
-                    <div class="card mb-3">
+        <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
       <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
@@ -24,8 +24,8 @@
               ID: {{ product.id }}
           {% endif %}
       <br><br>
-        <a href="{% url 'store:home' %}" class="btn btn-outline-secondary">Home</a>
-          <button type="button" value="{{ product.id }}" class="btn btn-outline-secondary" id="add-cart">Add To Cart</button>
+        <a href="{% url 'store:home' %}" class="btn btn-outline-dark mt-auto">Home</a>
+          <button type="button" value="{{ product.id }}" class="btn btn-outline-dark mt-auto" id="add-cart">Add To Cart</button>
       </div>
       </center>
     </div>

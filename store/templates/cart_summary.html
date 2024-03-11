@@ -2,23 +2,51 @@
 {% block title %}Django Ecommerce{% endblock %}
 {% block content %}
 
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shopping Cart</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">View Your Cart...</p>
-                </div>
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Shopping Cart</h1>
+                <p class="lead fw-normal text-white-50 mb-0">View Your Cart...</p>
             </div>
-        </header>
-<br>    
-<br>    
-<br>    
-<br>    
-<br>    
-<br>    
-<br>    
-<br>    
-<br>    
-        
+        </div>
+    </header>
+    <div class="container">
+    <br>
+        {% if cart_products %}
+        {% for product in cart_products %}
+            <div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <center>
+          <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <br>
+        <p class="card-text">{{ product.description }}</p>
+          {% if product.is_sale %}
+            <span class="text-muted text-decoration-line-through">${{product.price}}</span>
+                                    ${{ product.sale_price }}
+          {% else %}
+              ${{ product.price }}
+              <br>
+              ID: {{ product.id }}
+          {% endif %}
+      <br><br>
+        <a href="{% url 'store:home' %}" class="btn btn-outline-dark mt-auto">Home</a>
+      </div>
+      </center>
+    </div>
+  </div>
+</div>
+        {% endfor %}
+    {% else %}
+    There's Nothing in Your Cart...
+    <br><br><br><br><br><br><br><br><br>       
+    {% endif %}
+    <br>
+    </div>
+    
 {% endblock %}
