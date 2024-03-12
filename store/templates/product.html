@@ -56,10 +56,7 @@ $(document).on('click', '#add-cart', function(e){
         url: '{% url 'cart:cart_add' %}',
         data: {
             product_id: $('#add-cart').val(),
-<<<<<<< HEAD
-=======
             product_qty: $('#qty-cart option:selected').text(),
->>>>>>> Cart
             csrfmiddlewaretoken: '{{ csrf_token }}',
             action: 'post'
         },
