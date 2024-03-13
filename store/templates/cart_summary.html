@@ -78,7 +78,7 @@ $(document).on('click', '.update-cart', function(e){
 
     $.ajax({
     type: 'POST',
-    url: '{% url 'cart_update' %}',
+    url: '{% url 'cart:cart_update' %}',
     data: {
       product_id: $(this).data('index'),
       product_qty: $('#select' + productid + ' option:selected').text(),
