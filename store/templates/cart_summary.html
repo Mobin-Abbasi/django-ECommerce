@@ -54,7 +54,8 @@
           </div>
       <br><br>
         <a href="{% url 'store:home' %}" class="btn btn-outline-dark mt-auto">Home</a>
-          <button type="submit" data-index="{{ product.id }}" class="btn btn-outline-dark update-cart">Update</button>
+        <button type="submit" data-index="{{ product.id }}" class="btn btn-dark update-cart">Update</button>
+        <button type="submit" data-index="{{ product.id }}" class="btn btn-danger delete-product">Remove</button>
       </div>
       </center>
     </div>
@@ -63,31 +64,52 @@
         {% endfor %}
     {% else %}
     There's Nothing in Your Cart...
-    <br><br><br><br><br><br><br><br><br>       
+    <br><br><br><br><br><br><br><br><br>
     {% endif %}
     <br>
     </div>
-    
-    
-<script>
 
+
+<script>
+// Update Cart
 $(document).on('click', '.update-cart', function(e){
     e.preventDefault();
     // grab the product id
     var productid = $(this).data('index');
 
     $.ajax({
-    type: 'POST',
-    url: '{% url 'cart:cart_update' %}',
-    data: {
-      product_id: $(this).data('index'),
-      product_qty: $('#select' + productid + ' option:selected').text(),
-      csrfmiddlewaretoken: '{{ csrf_token }}',
-      action: 'post'
-    },
-    success: function(json){
-        location.reload();
-    },
+        type: 'POST',
+        url: '{% url 'cart:cart_update' %}',
+        data: {
+          product_id: $(this).data('index'),
+          product_qty: $('#select' + productid + ' option:selected').text(),
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          action: 'post'
+        },
+        success: function(json){
+            location.reload();
+        },
+        error: function(xhr, errmsg, err){
+            
+        },
+    });
+})
+
+// Delete Item From Cart
+$(document).on('click', '.delete-product', function(e){
+    e.preventDefault();
+
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart:cart_delete' %}',
+        data: {
+            product_id: $(this).data('index'),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+        success: function(json){
+            location.reload();
+        },
         error: function(xhr, errmsg, err){
             
         },
