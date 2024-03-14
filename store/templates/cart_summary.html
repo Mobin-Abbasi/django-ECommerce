@@ -27,6 +27,11 @@
           <br>
         <p class="card-text">{{ product.description }}</p>
           {% if product.is_sale %}
+              <div class="d-flex justify-content-center small text-warning mb-2">
+                <div class="bi-star-fill"></div>
+                    &nbsp;&nbsp;Sale!&nbsp;&nbsp;
+                <div class="bi-star-fill"></div>
+              </div>
             <span class="text-muted text-decoration-line-through">${{product.price}}</span>
                                     ${{ product.sale_price }}
           {% else %}
@@ -62,6 +67,7 @@
   </div>
 </div>
         {% endfor %}
+            <h3>Total: ${{ totals }}</h3>
     {% else %}
     There's Nothing in Your Cart...
     <br><br><br><br><br><br><br><br><br>
