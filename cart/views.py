@@ -38,6 +38,7 @@ def cart_add(request):
         cart_quantity = cart.__len__()
         # Return response
         response = JsonResponse({'qty': cart_quantity})
+        messages.error(request, 'Product Added To Cart...')
         return response
 
 
