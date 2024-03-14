@@ -24,6 +24,7 @@ def product_detail(request, pk):
     }
     return render(request, 'product.html', context)
 
+
 def about(request):
     return render(request, 'about.html', {})
 
@@ -86,3 +87,11 @@ def category(request, foo):
     except:
         messages.success(request, "That category Doesn't Exist...")
         return redirect('store:home')
+
+
+def category_summary(request):
+    categories = Category.objects.all()
+    context = {
+        'categories': categories
+    }
+    return render(request, 'category_summary.html', context)
