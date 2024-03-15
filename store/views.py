@@ -95,3 +95,22 @@ def category_summary(request):
         'categories': categories
     }
     return render(request, 'category_summary.html', context)
+
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        user_form = UpdateUserForm(request.POST or None, instance=current_user)
+        if user_form.is_valid():
+            user_form.save()
+            login(request, current_user)
+            messages.success(request, 'User has been updated!!!')
+            return redirect('store:home')
+        context = {
+            'current_user': current_user,
+            'user_form': user_form,
+        }
+        return render(request, 'update_user.html', context)
+    else:
+        messages.success(request, 'You Must Be Logged in To Access That Page!!!')
+        return redirect('store:home')
