@@ -32,8 +32,9 @@
                     </div>
                         <div class="container px-4 px-lg-5 mt-5">
                             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                            {% if searched %}
                                 {% for product in searched %}
-                                    {% if searched %}
+                                    {% if product.is_sale %}
                                     <!-- Sale badge-->
                                         <div class="col mb-5">
                                     <div class="card h-100">
@@ -47,6 +48,11 @@
                                                 <!-- Product name-->
                                                 <h5 class="fw-bolder">{{ product.name}}</h5>
                                                 <!-- Product price-->
+                                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                            &nbsp;&nbsp;Sale!&nbsp;&nbsp;
+                                        <div class="bi-star-fill"></div>
+                                    </div>
                                                 <span class="text-muted text-decoration-line-through">${{product.price}}</span>
                                                 ${{ product.sale_price }}
                                             </div>
@@ -79,6 +85,7 @@
                                 </div>
                                     {% endif %}
                                 {% endfor %}
+                            {% endif %}
                             </div>
                         </div>
                     <br><br>
