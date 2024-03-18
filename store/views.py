@@ -154,7 +154,7 @@ def update_info(request):
             # Save original form
             form.save()
             messages.success(request, "Your Info Has Been Updated!!")
-            return redirect('home')
+            return redirect('store:home')
         context = {
             'form': form,
             'current_user': current_user
@@ -162,7 +162,7 @@ def update_info(request):
         return render(request, "update_info.html", context)
     else:
         messages.success(request, "You Must Be Logged In To Access That Page!!")
-        return redirect('home')
+        return redirect('store:home')
 
 
 def search(request):
