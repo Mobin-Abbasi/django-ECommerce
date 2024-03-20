@@ -9,6 +9,8 @@ from .forms import *
 from django.db.models import Q
 import json
 from cart.cart import Cart
+from Payment.forms import ShippingForm
+from Payment.models import ShippingAddress
 
 
 # Create your views here.
@@ -167,16 +169,22 @@ def update_info(request):
     if request.user.is_authenticated:
         # Get Current User
         current_user = Profile.objects.get(user__id=request.user.id)
+        # Get Current User's Shipping Info
+        shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
         # Get original User Form
         form = UserInfoForm(request.POST or None, instance=current_user)
-        if form.is_valid():
+        # Get User's Shipping Form
+        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
+        if form.is_valid() or shipping_form.is_valid():
             # Save original form
             form.save()
+            # Save shipping form
+            shipping_form.save()
             messages.success(request, "Your Info Has Been Updated!!")
-            return redirect('store:home')
+            return redirect('home')
         context = {
             'form': form,
-            'current_user': current_user
+            'shipping_form': shipping_form,
         }
         return render(request, "update_info.html", context)
     else:
