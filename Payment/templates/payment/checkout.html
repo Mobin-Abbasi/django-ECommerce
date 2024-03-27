@@ -20,6 +20,27 @@
                         Order Summery
                     </div>
                     <div class="card-body">
+                        {% for product in cart_products %}
+                            {{ product.name }}
+                            {% if product.is_sale %}
+                                ${{ product.sale_price }}
+                            {% else %}
+                                ${{ product.price }}
+                            {% endif %}
+                            <br>
+                            <small>
+                                Quantity:
+                                {% for key, value in quantities.items %}
+                                  {% if key == product.id|slugify%}
+                                      {{ value }}
+                                  {% endif %}
+                                {% endfor %}
+                            </small>
+                            <br><br>
+                        {% endfor %}
+                        Total: ${{ totals }}
+                        <br><br>
+                        <a href="{% url "cart:cart_summary" %}" class="btn btn-sm btn-outline-dark">Update Items</a>
                     </div>
                 </div>
             </div>
