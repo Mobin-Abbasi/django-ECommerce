@@ -67,7 +67,13 @@
   </div>
 </div>
         {% endfor %}
-            <h3>Total: ${{ totals }}</h3>
+            <div align="right">
+                <h3>Total: ${{ totals }}</h3>
+                <br>
+                <a href="{% url 'payment:checkout' %}" class="btn btn-success">Checkout</a>
+                <br>
+            </div>
+            
     {% else %}
     There's Nothing in Your Cart...
     <br><br><br><br><br><br><br><br><br>
