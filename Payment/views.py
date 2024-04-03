@@ -7,13 +7,14 @@ from .models import ShippingAddress
 # Create your views here.
 
 def payment_success(request):
-    return render(request, 'payment/payment_success.html', {})
+    return render(request, "payment/payment_success.html", {})
 
 
 def checkout(request):
+    # Get the cart
     cart = Cart(request)
-    cart_products = cart.get_prods()
-    quantities = cart.get_quants()
+    cart_products = cart.get_prods
+    quantities = cart.get_quants
     totals = cart.cart_total()
     if request.user.is_authenticated:
         # Checkout as logged in user
