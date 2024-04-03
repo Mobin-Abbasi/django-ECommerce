@@ -46,14 +46,14 @@ class Profile(models.Model):
         return self.user.username
 
 
-# Create a user Profile by default when sign up
+# Create a user Profile by default when user signs up
 def create_profile(sender, instance, created, **kwargs):
     if created:
         user_profile = Profile(user=instance)
         user_profile.save()
 
 
-# Automate the Profile thing
+# Automate the profile thing
 post_save.connect(create_profile, sender=User)
 
 
