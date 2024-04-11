@@ -51,12 +51,11 @@
                     <div class="card-body">
                         <form method="POST" action="{% url 'payment:billing_info' %}">
                             {{ sipping_form.as_p }}
+                            <br>
+                            <a href="#" class="btn btn-dark">Continue To Billing</a>
                         </form>
-
                     </div>
                 </div>
-                <br>
-                <a href="#" class="btn btn-dark">Continue To Billing</a>
             </div>
         </div>
     </div>
