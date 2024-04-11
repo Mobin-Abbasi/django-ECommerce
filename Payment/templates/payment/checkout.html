@@ -49,7 +49,7 @@
                         Shipping Info
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{% url '' %}">
+                        <form method="POST" action="{% url 'payment:billing_info' %}">
                             {{ sipping_form.as_p }}
                         </form>
 
