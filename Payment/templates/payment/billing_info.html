@@ -1,88 +1,101 @@
 {% extends 'base.html' %}
-{% block title %}Django Ecommerce{% endblock %}
+
+
 {% block content %}
 
-    <!-- Header-->
-    <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Billing Info</h1>
-                <p class="lead fw-normal text-white-50 mb-0">Enter Your Payment Info...</p>
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Billing Info</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Enter Your Payment Info...</p>
+                </div>
             </div>
+        </header>
+        <br/>
+        <div class="container">
+            <div class="row">
+
+                    <div class="col-md-6 offset-md-3">
+          <div class="card">
+          <div class="card-header">
+            Order Summary
+          </div>
+          <div class="card-body">
+            {% for product in cart_products %}
+                {{ product.name }}:
+                    {% if product.is_sale %}
+                        ${{ product.sale_price }}
+                    {% else %}
+                        ${{ product.price }}
+                {% endif %}
+
+                <br/>
+                <small>Quantity:
+                {% for key, value in quantities.items %}
+                    {% if key == product.id|slugify %}
+                        {{ value }}
+                    {% endif %}
+                {% endfor %}</small>
+                <br/><br/>
+
+            {% endfor %}
+            Total:  ${{ totals }}
+            <br/><br/>
+            <a href="{% url 'cart:cart_summary' %}" class="btn btn-sm btn-outline-dark">Update Items</a>
+          </div>
         </div>
-    </header>
-    <br>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-header">
-                        Order Summery
-                    </div>
-                    <div class="card-body">
-                        {% for product in cart_products %}
-                            {{ product.name }}
-                            {% if product.is_sale %}
-                                ${{ product.sale_price }}
-                            {% else %}
-                                ${{ product.price }}
-                            {% endif %}
-                            <br>
-                            <small>
-                                Quantity:
-                                {% for key, value in quantities.items %}
-                                  {% if key == product.id|slugify%}
-                                      {{ value }}
-                                  {% endif %}
-                                {% endfor %}
-                            </small>
-                            <br><br>
-                        {% endfor %}
-                        Total: ${{ totals }}
-                        <br><br>
-                        <a href="{% url "cart:cart_summary" %}" class="btn btn-sm btn-outline-dark">Update Items</a>
-                    </div>
-                </div>
-                <br>
-                <div class="card">
-                    <div class="card-header">
-                        Shipping Info
-                    </div>
-                    <div class="card-body">
-                        full_name: {{ sipping_info.shipping_full_name }}
-                        <br><br>
-                        email: {{ sipping_info.shipping_email }}
-                        <br><br>
-                        address 1: {{ sipping_info.shipping_address1 }}
-                        <br><br>
-                        address 2: {{ sipping_info.shipping_address2 }}
-                        <br><br>
-                        city: {{ sipping_info.shipping_city }}
-                        <br><br>
-                        state: {{ sipping_info.shipping_state }}
-                        <br><br>
-                        zipcode: {{ sipping_info.shipping_zipcode }}
-                        <br><br>
-                        country: {{ sipping_info.shipping_country }}
-                        <br><br>
-                        <a href="{% url 'payment:checkout' %}" class="btn btn-outline-dark">Update Shipping</a>
-                    </div>
-                </div>
-                <br>
-                 <div class="card">
-                    <div class="card-header">
-                        Billing Info
-                    </div>
-                    <div class="card-body">
+<br/><br/>
+<div class="card">
+  <div class="card-header">
+    Shipping Info
+  </div>
+  <div class="card-body">
 
-                    </div>
-                </div>
-            <br>
-            <a href="#" class="btn btn-dark">Pay Now</a>
+    Name: {{ shipping_info.shipping_full_name }}<br/>
+    Email: {{ shipping_info.shipping_email }}<br/>
+    Address 1: {{ shipping_info.shipping_address1 }}<br/>
+    Address 2: {{ shipping_info.shipping_address2 }}<br/>
+    City: {{ shipping_info.shipping_city }}<br/>
+    State: {{ shipping_info.shipping_state }}<br/>
+    Zipcode: {{ shipping_info.shipping_zipcode }}<br/>
+    Country: {{ shipping_info.shipping_country }}<br/>
+    <br/>
+    <a href="{% url 'payment:checkout' %}" class="btn btn-outline-dark">Update Shipping</a>
+
+  </div>
+</div>
+<br/><br/>
+
+<div class="card">
+  <div class="card-header">
+    Billing Info
+  </div>
+  <div class="card-body">
+    <form method="POST" action="#">
+      {% csrf_token %}
+    {{ billing_form.as_p }}
+
+  </div>
+</div>
+<br/>
+
+
+
+<button type="submit" class="btn btn-dark">
+  Pay Now
+</button>
+</form>
+<br/><br/>
+
+
             </div>
-
         </div>
     </div>
-    <br>
+
+
+
+
+
 
 {% endblock %}
