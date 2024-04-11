@@ -39,3 +39,7 @@ def checkout(request):
             'shipping_form': shipping_form,
         }
         return render(request, 'payment/checkout.html', context)
+
+
+def billing_info(request):
+    pass
