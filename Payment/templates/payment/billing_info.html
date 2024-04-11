@@ -49,14 +49,38 @@
                         Shipping Info
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{% url 'payment:billing_info' %}">
-                            {{ sipping_form.as_p }}
-                            <br>
-                            <a href="#" class="btn btn-dark">Pay Now</a>
-                        </form>
+                        full_name: {{ sipping_info.shipping_full_name }}
+                        <br><br>
+                        email: {{ sipping_info.shipping_email }}
+                        <br><br>
+                        address 1: {{ sipping_info.shipping_address1 }}
+                        <br><br>
+                        address 2: {{ sipping_info.shipping_address2 }}
+                        <br><br>
+                        city: {{ sipping_info.shipping_city }}
+                        <br><br>
+                        state: {{ sipping_info.shipping_state }}
+                        <br><br>
+                        zipcode: {{ sipping_info.shipping_zipcode }}
+                        <br><br>
+                        country: {{ sipping_info.shipping_country }}
+                        <br><br>
+                        <a href="{% url 'payment:checkout' %}" class="btn btn-outline-dark">Update Shipping</a>
                     </div>
                 </div>
+                <br>
+                 <div class="card">
+                    <div class="card-header">
+                        Billing Info
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                </div>
+            <br>
+            <a href="#" class="btn btn-dark">Pay Now</a>
             </div>
+
         </div>
     </div>
     <br>

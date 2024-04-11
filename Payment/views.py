@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render, redirect
 from cart.cart import Cart
 from .forms import ShippingForm
 from .models import ShippingAddress
@@ -42,4 +43,33 @@ def checkout(request):
 
 
 def billing_info(request):
-    pass
+    # if request.method == 'POST':
+    # Get the cart
+    cart = Cart(request)
+    cart_products = cart.get_prods
+    quantities = cart.get_quants
+    totals = cart.cart_total()
+    shipping_form = request.POST
+    # Check to See if user is Logged in
+    # if request.user.is_authenticated:
+    #     context = {
+    #         'cart_products': cart_products,
+    #         'quantities': quantities,
+    #         'totals': totals,
+    #         'shipping_info': request.POST,
+    #     }
+    #     return render(request, 'payment/billing_info.html', context)
+    # else:
+    #     # Not Logged in
+    #     pass
+    context = {
+        'cart_products': cart_products,
+        'quantities': quantities,
+        'totals': totals,
+        'shipping_form': shipping_form,
+        'shipping_info': request.POST,
+    }
+    return render(request, 'payment/billing_info.html', context)
+    # else:
+    #     messages.success(request, 'Access Denied')
+    #     return redirect('store:home')
