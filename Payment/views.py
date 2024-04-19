@@ -77,3 +77,7 @@ def billing_info(request):
     else:
         messages.success(request, 'Access Denied')
         return redirect('store:home')
+
+
+def process_order(request):
+    pass
