@@ -127,10 +127,15 @@ def process_order(request):
                 for key, value in quantities().items():
                     if int(key) == product.id:
                         # Create Order Item
-                        creat_order_item = OrderItem(order_id=order_id, product_id=product_id, 
-                                                    user=user, quantity=value, price=price, )
+                        creat_order_item = OrderItem(order_id=order_id, product_id=product_id,
+                                                     user=user, quantity=value, price=price, )
                         creat_order_item.save()
 
+            # Delete our cart
+            for key in list(request.session.keys()):
+                if key == "session_key":
+                    # Delete The Key
+                    del request.session[key]
 
             messages.success(request, 'Order Placed!')
             return redirect('store:home')
@@ -155,8 +160,15 @@ def process_order(request):
                 for key, value in quantities().items():
                     if int(key) == product.id:
                         # Create Order Item
-                        creat_order_item = OrderItem(order_id=order_id, product_id=product_id, quantity=value, price=price, )
+                        creat_order_item = OrderItem(order_id=order_id, product_id=product_id, quantity=value,
+                                                     price=price, )
                         creat_order_item.save()
+
+            # Delete our cart
+            for key in list(request.session.keys()):
+                if key == "session_key":
+                    # Delete The Key
+                    del request.session[key]
 
             messages.success(request, 'Order Placed!')
             return redirect('store:home')
