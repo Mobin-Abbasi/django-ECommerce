@@ -179,8 +179,16 @@ def process_order(request):
 
 
 def shipped_dash(request):
-    pass
+    if request.user.is_authenticated and request.user.is_superuser:
+        return render(request, 'payment/shipped_dash.html')
+    else:
+        messages.success(request, 'Access Denied')
+        return redirect('store:home')
 
 
 def not_shipped_dash(request):
-    pass
+    if request.user.is_authenticated and request.user.is_superuser:
+        return render(request, 'payment/not_shipped_dash.html')
+    else:
+        messages.success(request, 'Access Denied')
+        return redirect('store:home')
