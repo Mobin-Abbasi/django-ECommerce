@@ -7,20 +7,30 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'store:home' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'store:about' %}">About</a></li>
-                {% if user.is_authenticated %}
 
+                {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'store:update_user' %}">User Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'store:update_info' %}">User Info</a></li>
                         </ul>
-                    </li>   
+                    </li>
+                    {% if user.is_superuser %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Orders</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'payment:shipped_dash' %}">Shipped orders</a></li>
+                                <li><a class="dropdown-item" href="{% url 'payment:not_shipped_dash' %}">Unshipped orders</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'store:logout' %}">Logout</a></li>
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'store:login' %}">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'store:register' %}">Register</a></li>
                 {% endif %}
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
