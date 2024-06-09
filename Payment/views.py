@@ -207,10 +207,10 @@ def orders(request, pk):
         # Get the order
         order = Order.objects.get(id=pk)
         # Get the order items
-        item = OrderItem.objects.filter(order=pk)
+        items = OrderItem.objects.filter(order=pk)
         context = {
             "order": order,
-            "item": item,
+            "items": items,
         }
         return render(request, 'payment/orders.html', context)
     else:
