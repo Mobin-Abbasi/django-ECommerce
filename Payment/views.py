@@ -202,10 +202,15 @@ def not_shipped_dash(request):
         return redirect('store:home')
 
 
-def orders(request):
+def orders(request, pk):
     if request.user.is_authenticated and request.user.is_superuser:
+        # Get the order
+        order = Order.objects.get(id=pk)
+        # Get the order items
+        item = OrderItem.objects.filter(order=pk)
         context = {
-
+            "order": order,
+            "item": item,
         }
         return render(request, 'payment/orders.html', context)
     else:
