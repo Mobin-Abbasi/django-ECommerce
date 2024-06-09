@@ -200,3 +200,7 @@ def not_shipped_dash(request):
     else:
         messages.success(request, 'Access Denied')
         return redirect('store:home')
+
+
+def orders(request):
+    pass
