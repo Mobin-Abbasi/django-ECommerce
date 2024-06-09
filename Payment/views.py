@@ -203,4 +203,11 @@ def not_shipped_dash(request):
 
 
 def orders(request):
-    pass
+    if request.user.is_authenticated and request.user.is_superuser:
+        context = {
+
+        }
+        return render(request, 'payment/orders.html', context)
+    else:
+        messages.success(request, 'Access Denied')
+        return redirect('store:home')
