@@ -208,6 +208,23 @@ def orders(request, pk):
         order = Order.objects.get(id=pk)
         # Get the order items
         items = OrderItem.objects.filter(order=pk)
+
+        if request.POST:
+            status = request.POST["shipping_status"]
+            # Check if true or false
+            if status == 'true':
+                # Get the order
+                order = Order.objects.filter(id=pk)
+                # Update The Status
+                order.update(shipped=True)
+            else:
+                # Get the order
+                order = Order.objects.filter(id=pk)
+                # Update The Status
+                order.update(shipped=False)
+            messages.success(request, 'Shipping Status Updated')
+            return redirect('store:home')
+
         context = {
             "order": order,
             "items": items,
