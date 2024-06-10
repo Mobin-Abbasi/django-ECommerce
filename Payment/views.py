@@ -181,10 +181,21 @@ def process_order(request):
 def shipped_dash(request):
     if request.user.is_authenticated and request.user.is_superuser:
         orders = Order.objects.filter(shipped=True)
+
+        if request.POST:
+            status = request.POST["shipping_status"]
+            num = request.POST["num"]
+            # grab the order
+            order = Order.objects.filter(id=num)
+            # update the order
+            order.update(shipped=False)
+            messages.success(request, 'Shipping Status Updated')
+            return redirect('store:home')
+
         context = {
             'orders': orders,
         }
-        return render(request, 'payment/not_shipped_dash.html', context)
+        return render(request, 'payment/shipped_dash.html', context)
     else:
         messages.success(request, 'Access Denied')
         return redirect('store:home')
@@ -193,6 +204,17 @@ def shipped_dash(request):
 def not_shipped_dash(request):
     if request.user.is_authenticated and request.user.is_superuser:
         orders = Order.objects.filter(shipped=False)
+
+        if request.POST:
+            status = request.POST["shipping_status"]
+            num = request.POST["num"]
+            # grab the order
+            order = Order.objects.filter(id=num)
+            # update the order
+            order.update(shipped=True)
+            messages.success(request, 'Shipping Status Updated')
+            return redirect('store:home')
+
         context = {
             'orders': orders,
         }
